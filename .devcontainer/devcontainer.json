@@ -1,0 +1,12 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/universal
+{
+	"name": "copier-nextflow devcontainer",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/universal:2-linux",
+	"features": {
+		"ghcr.io/robsyme/features/nextflow:1": {},
+		"ghcr.io/robsyme/features/nf-test:1": {},
+		"ghcr.io/devcontainers-contrib/features/poetry": {},
+	}
+}

@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "copier-nextflow"
+package-mode = false
+authors = [
+    "Ken Brewer <ken@kenbrewer.com>",
+]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+commitizen = "^3.27.0"
+cz-conventional-gitmoji = "^0.3.2"
+copier = "^9.2.0"
