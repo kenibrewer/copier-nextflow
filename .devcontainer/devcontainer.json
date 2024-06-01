@@ -5,5 +5,16 @@
 		"ghcr.io/robsyme/features/nextflow:1": {},
 		"ghcr.io/robsyme/features/nf-test:1": {},
 		"ghcr.io/devcontainers-contrib/features/poetry": {},
+	},
+	"containerEnv": {
+		"POETRY_VIRTUALENVS_IN_PROJECT": "true",
+	},
+	"postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python",
+			}
+		}
 	}
 }
