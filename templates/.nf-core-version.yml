@@ -1,0 +1,4 @@
+# This tracks the version of nf-core/tools that this template is dervied from
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v2.14.1+0.0.1
+_src_path: https://github.com/kenibrewer/tools
