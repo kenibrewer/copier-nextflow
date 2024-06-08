@@ -1,0 +1,52 @@
+_subdirectory: "templates/{{ template_type }}-template"
+template_type:
+  help: What are you templating?
+  type: str
+  default: pipeline
+  choices:
+    - pipeline
+    - subworkflow
+    - module
+name:
+  type: str
+  help: "Name for the {{ template_type }}?"
+  placeholder: "nf-core/example-pipeline"
+short_name:
+  type: str
+  help: "What is the short name of the {{ template_type }}?"
+  placeholder: "examplepipeline"
+description:
+  type: str
+  help: "Description of the {{ template_type }}?"
+author:
+  type: str
+  help: "Author of the {{ template_type }}?"
+igenomes:
+  type: bool
+  help: "Does this pipeline require iGenomes?"
+  default: false
+nf_core_configs:
+  type: bool
+  help: "Should the nf-core configs be included?"
+  default: false
+pipeline_features:
+  type: str
+  help: "Which pipeline features should be enabled?"
+  default: []
+  multiselect: true
+  choices:
+    - multiqc
+devexp_features:
+  type: str
+  help: "Which developer experience features should be enabled?"
+  default: []
+  multiselect: true
+  choices:
+    - devcontainer
+    - gitpod
+ci:
+  type: str
+  default: none
+  choices:
+    - github
+    - none
