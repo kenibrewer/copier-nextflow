@@ -1,34 +1,48 @@
-_subdirectory: "templates/{{ template_type }}-template"
-template_type:
-  help: What are you templating?
+repo_prefix:
   type: str
-  default: pipeline
-  choices:
-    - pipeline
-    - subworkflow
-    - module
-name:
+  help: User/organization prefix for the repository? (e.g. `example-org` in `github.com/example-org/example-pipeline`)
+  placeholder: "example-org"
+  validator: >-
+    {% if not (repo_name | regex_search('^[a-zA-Z][a-zA-Z0-9\-_]+$')) %}
+    repo_prefix must start with a letter, followed one or more letters, digits, dashes, or underscores.
+    {% endif %}
+repo_name:
   type: str
-  help: "Name for the {{ template_type }}?"
-  placeholder: "nf-core/example-pipeline"
-short_name:
+  help: "Repository name? (e.g. `example-pipeline` in `github.com/example-org/example-pipeline`)"
+  placeholder: "example-pipeline"
+  validator: >-
+    {% if not (repo_name | regex_search('^[a-z][a-z0-9\-_]+$')) %}
+    repo_name must start with a letter, followed one or more letters, digits, dashes, or underscores all lowercase.
+    {% endif %}
+pipeline_name:
   type: str
-  help: "What is the short name of the {{ template_type }}?"
-  placeholder: "examplepipeline"
+  help: "Pipeline name?"
+  default: "{{ repo_name | regex_replace ("[\-]","_") %} }}"
+  validator: >-
+    {% if not (repo_name | regex_search('^[a-z][a-z0-9\-_]+$')) %}
+    pipeline_name must start with a letter, followed one or more letters, digits, or underscores all lowercase.
+    {% endif %}
 description:
   type: str
-  help: "Description of the {{ template_type }}?"
-author:
+  help: "Pipeline description?"
+  multiline: true
+  default: "{{ repo_name }} is a nextflow pipeline that "
+author_name:
   type: str
-  help: "Author of the {{ template_type }}?"
-igenomes:
+  help: "Pipeline author?"
+version:
+  type: str
+  help: "Starting version identifier?"
+  default: "0.1.0"
+advanced_options:
   type: bool
-  help: "Does this pipeline require iGenomes?"
   default: false
-nf_core_configs:
-  type: bool
-  help: "Should the nf-core configs be included?"
-  default: false
+  help: Show advanced customization options?
+# Advanced options
+vcs_hostname:
+  type: str
+  help: Hostname of your version control system? (e.g. `github.com`)
+  default: github.com
 pipeline_features:
   type: str
   help: "Which pipeline features should be enabled?"
@@ -39,14 +53,28 @@ pipeline_features:
 devexp_features:
   type: str
   help: "Which developer experience features should be enabled?"
-  default: []
+  default: ["gitpod"]
   multiselect: true
   choices:
     - devcontainer
     - gitpod
+    - commitizen
 ci:
   type: str
-  default: none
+  default: github
   choices:
     - github
     - none
+# Hidden questions whose reponses are not recorded, but are available in render context
+template_type:
+  help: What are you templating?
+  type: str
+  default: pipeline
+  choices:
+    - pipeline
+  # subworkflow and module is currently not supported, but is being considered for the future
+    # - subworkflow
+    # - module
+  when: false
+# Copier configuration
+_subdirectory: "template"
